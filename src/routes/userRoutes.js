@@ -54,7 +54,7 @@ router.delete('/:id', (req, res) => {
         data
       })
     }else {
-      res.status(400).json({
+      res.status(500).json({
         err
       })
     }

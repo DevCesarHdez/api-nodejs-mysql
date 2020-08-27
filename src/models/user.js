@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 connection = mysql.createConnection({
-  host: "remotemysql.com",
-  user: "MIWOmbtZpP",
-  password: "UEVIjDbIt9",
-  database: "MIWOmbtZpP"
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DB
 })
 
 let userModel = {};
@@ -67,7 +67,7 @@ userModel.deleteUser = ( id, callback ) => {
   if (connection) {
     connection.query('DELETE FROM users WHERE id = ?', [id], (err, result) => {
       if (err) {
-        throw err;
+        callback(null, { err })
       }else if (result.affectedRows == 1) {
         callback(null, {
           success: true,
